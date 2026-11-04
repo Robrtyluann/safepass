@@ -8,7 +8,7 @@ class ProviderCardOut(Output):
     name: str
     category: str
     tags: list[str]
-    price_tier: str
+    price_tier: str | None
     image_url: str | None
     contact: str | None
     favorited: bool

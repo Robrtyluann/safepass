@@ -11,7 +11,8 @@ from app.core.exceptions import ForbiddenError, UnauthorizedError
 from app.core.security import InvalidAccessTokenError, decode_access_token
 from app.integrations.account_identity import AccountIdentity
 from app.integrations.identity import IdentityGateway, Principal
-from app.integrations.provider_catalog import ProviderCatalogGateway, UnconfiguredProviderCatalog
+from app.integrations.provider_catalog import ProviderCatalogGateway
+from app.modules.providers.catalog import ProviderCatalog
 from app.modules.users.repository import UserRepository
 from app.shared.identity import CurrentUser
 from app.shared.roles import Role
@@ -117,5 +118,6 @@ def get_principal(
     return identity.authenticate(token)
 
 
-def get_provider_catalog() -> ProviderCatalogGateway:
-    return UnconfiguredProviderCatalog()
+def get_provider_catalog(db: Session = Depends(get_db)) -> ProviderCatalogGateway:
+    """Catálogo real (módulo `providers`, D03); os testes usam `LocalProviderCatalog`."""
+    return ProviderCatalog(db)

@@ -15,6 +15,7 @@ COPY --from=build /app/.venv /app/.venv
 COPY app ./app
 COPY alembic ./alembic
 COPY alembic.ini ./
+COPY scripts ./scripts
 ENV PATH="/app/.venv/bin:$PATH"
 USER safepass
 EXPOSE 8000

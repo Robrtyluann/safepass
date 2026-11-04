@@ -12,6 +12,7 @@ from app.core.database import get_db
 from app.core.exceptions import register_exception_handlers
 from app.modules.alerts.router import router as alerts
 from app.modules.auth.router import router as auth_router
+from app.modules.companies.router import router as companies
 from app.modules.coupons.router import router as coupons
 from app.modules.dashboard.router import router as dashboard
 from app.modules.dependents.router import router as dependents
@@ -21,6 +22,7 @@ from app.modules.plans.router import router as plans_router
 from app.modules.platform_reviews.router import admin_router as platform_reviews_admin_router
 from app.modules.platform_reviews.router import router as platform_reviews_router
 from app.modules.points.router import router as points
+from app.modules.providers.router import router as providers
 from app.modules.referrals.router import admin_router as referrals_admin_router
 from app.modules.referrals.router import router as referrals_router
 from app.modules.reviews.router import router as reviews
@@ -36,7 +38,8 @@ def create_app() -> FastAPI:
         version="0.1.0",
         description=(
             "Backend integrado: identidade, planos e assinaturas (D01); marketplace, "
-            "avaliações, pontos, cupons, dependentes, alertas e dashboard (D02)."
+            "avaliações, pontos, cupons, dependentes, alertas e dashboard (D02); prestadores e"
+            " empresas (D03)."
         ),
     )
     app.add_middleware(
@@ -78,6 +81,8 @@ def create_app() -> FastAPI:
         coupons,
         dependents,
         alerts,
+        providers,
+        companies,
     ):
         api_v1.include_router(router)
     app.include_router(api_v1)

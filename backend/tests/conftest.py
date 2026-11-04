@@ -1,5 +1,6 @@
 import os
 from collections.abc import Iterator
+from datetime import UTC, datetime
 
 import pytest
 from alembic.config import Config
@@ -11,6 +12,7 @@ from sqlalchemy.orm import Session
 from alembic import command
 from app.core.database import get_db
 from app.core.dependencies import get_identity, get_provider_catalog
+from app.core.rate_limit import limiter
 from app.integrations.local_identity import LocalIdentity
 from app.integrations.local_provider_catalog import LocalProviderCatalog
 from app.main import create_app
@@ -65,3 +67,43 @@ def client(db: Session) -> Iterator[TestClient]:
     app.dependency_overrides[get_provider_catalog] = LocalProviderCatalog
     with TestClient(app) as client:
         yield client
+
+
+class FixedClock:
+    """Relógio fixo e avançável, usado pelos testes unitários do Desafio 01."""
+
+    def __init__(self, now: datetime | None = None) -> None:
+        self._now = now or datetime(2026, 11, 1, 12, 0, tzinfo=UTC)
+
+    def now(self) -> datetime:
+        return self._now
+
+    def advance(self, delta) -> None:  # type: ignore[no-untyped-def]
+        self._now += delta
+
+
+class FakeUow:
+    def __init__(self) -> None:
+        self.commits = 0
+        self.flushes = 0
+
+    def commit(self) -> None:
+        self.commits += 1
+
+    def flush(self) -> None:
+        self.flushes += 1
+
+
+@pytest.fixture
+def clock() -> FixedClock:
+    return FixedClock()
+
+
+@pytest.fixture
+def uow() -> FakeUow:
+    return FakeUow()
+
+
+@pytest.fixture(autouse=True)
+def _reset_rate_limiter() -> None:
+    limiter.reset()

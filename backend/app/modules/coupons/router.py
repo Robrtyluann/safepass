@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Header, Query
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.core.dependencies import get_current_user
+from app.core.dependencies import get_principal
 from app.integrations.identity import Principal
 from app.modules.coupons import schemas as s
 from app.modules.coupons.repository import CouponRepository
@@ -19,7 +19,7 @@ from app.shared.clock import SystemClock
 from app.shared.schemas import Page
 
 router = APIRouter(tags=["coupons"])
-User = Annotated[Principal, Depends(get_current_user)]
+User = Annotated[Principal, Depends(get_principal)]
 PageNumber = Annotated[int, Query(ge=1)]
 PageSize = Annotated[int, Query(ge=1, le=100)]
 

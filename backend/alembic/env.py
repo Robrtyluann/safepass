@@ -1,18 +1,12 @@
 from sqlalchemy import create_engine, pool
 
 from alembic import context
+from app.core import models_registry
 from app.core.config import get_settings
 from app.core.database import Base
-from app.modules.alerts import models as alerts
-from app.modules.coupons import models as coupons
-from app.modules.dependents import models as dependents
-from app.modules.marketplace import models as marketplace
-from app.modules.points import models as points
-from app.modules.reviews import models as reviews
 
 # Imports register every module before autogeneration; no create_all at startup.
-assert alerts.Alert and coupons.Coupon and dependents.Dependent
-assert marketplace.Favorite and points.ManagerAccount and reviews.Review
+assert models_registry.__all__
 config = context.config
 target_metadata = Base.metadata
 

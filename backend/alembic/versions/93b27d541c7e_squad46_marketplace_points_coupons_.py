@@ -1,7 +1,7 @@
 """squad46_marketplace_points_coupons_dependents_reviews_alerts
 
 Revision ID: 93b27d541c7e
-Revises:
+Revises: d01_0001
 Create Date: 2026-10-26 22:37:51.995690
 
 """
@@ -14,7 +14,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision: str = "93b27d541c7e"
-down_revision: str | None = None
+down_revision: str | None = "d01_0001"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 

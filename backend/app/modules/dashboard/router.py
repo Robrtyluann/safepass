@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.core.dependencies import get_current_user
+from app.core.dependencies import get_principal
 from app.integrations.identity import Principal
 from app.modules.alerts.repository import AlertRepository
 from app.modules.alerts.service import AlertService
@@ -19,7 +19,7 @@ from app.modules.points.service import PointsService
 from app.shared.clock import SystemClock
 
 router = APIRouter(tags=["dashboard"])
-User = Annotated[Principal, Depends(get_current_user)]
+User = Annotated[Principal, Depends(get_principal)]
 
 
 def get_service(db: Session = Depends(get_db)) -> DashboardService:

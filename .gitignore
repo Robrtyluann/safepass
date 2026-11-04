@@ -1,0 +1,36 @@
+# Variaveis de ambiente e segredos
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Node.js e Next.js
+node_modules/
+.next/
+.turbo/
+dist/
+out/
+coverage/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Logs e bancos locais
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# Chaves privadas
+*.pem
+*.key
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db

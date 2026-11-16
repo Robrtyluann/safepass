@@ -1,0 +1,49 @@
+# Credenciais exclusivamente locais; volumes separados do Compose padrão.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: safepass
+      POSTGRES_PASSWORD: integration_local_only
+      POSTGRES_DB: safepass
+    ports:
+      - "127.0.0.1:55440:5432"
+    volumes:
+      - integration_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U safepass -d safepass"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  migrate:
+    image: safepass-banco-unificado:local
+    build: .
+    command: ["alembic", "upgrade", "head"]
+    env_file:
+      - path: .env
+        required: false
+    environment: &api_environment
+      ENVIRONMENT: development
+      DATABASE_URL: postgresql+psycopg://safepass:integration_local_only@db:5432/safepass
+      DOCUMENTS_DIR: /app/storage/documents
+      COOKIE_SECURE: "false"
+    depends_on:
+      db:
+        condition: service_healthy
+  api:
+    image: safepass-banco-unificado:local
+    build: .
+    env_file:
+      - path: .env
+        required: false
+    environment: *api_environment
+    ports:
+      - "127.0.0.1:8001:8000"
+    volumes:
+      - integration_documents:/app/storage/documents
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+volumes:
+  integration_pgdata:
+  integration_documents:

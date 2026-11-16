@@ -1,5 +1,11 @@
 # SAFEpass — Desafio 01
 
+**Integração dos squads 23, 46, 47 e 44:** o guia principal desta branch é
+[backend/README.md](backend/README.md). Use o Compose de integração descrito lá
+para demonstrar o backend com PostgreSQL e arquivos persistentes. As instruções
+abaixo descrevem a stack original do Desafio 01, incluindo seu frontend; não são
+o procedimento de validação do banco integrado.
+
 Aplicação web do SAFEpass, organizada como monorepo para facilitar a integração entre squads:
 
 - `frontend/`: Next.js + React + TypeScript.
@@ -27,7 +33,7 @@ URLs locais:
 
 Conta administrativa apenas para desenvolvimento: `admin@example.com` / `Admin12345`. Troque essas credenciais em qualquer ambiente compartilhado e nunca as use em produção.
 
-Para encerrar: `Ctrl+C`; para remover também o banco local: `docker compose down -v` (isso apaga os dados do volume).
+Para encerrar: `Ctrl+C` ou `docker compose stop`. Preserve os volumes para manter os dados locais.
 
 ## Executar sem Docker
 

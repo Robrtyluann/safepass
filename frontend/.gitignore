@@ -1,7 +1,14 @@
-node_modules
-.next
-coverage
-.env
-.env.local
+node_modules/
+.next/
+coverage/
+.turbo/
+dist/
+out/
+
+# Environment secrets
+.env*
+!.env.example
+
+# TypeScript / build artifacts
 next-env.d.ts
 *.tsbuildinfo

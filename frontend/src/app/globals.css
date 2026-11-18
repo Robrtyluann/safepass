@@ -1,29 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Days+One&family=Inter:wght@400;500;600;700&family=Yanone+Kaffeesatz:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-inter: Inter, "Segoe UI", Arial, sans-serif;
-  --font-outfit: Outfit, "Trebuchet MS", Arial, sans-serif;
+  --font-inter: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-yanone: "Yanone Kaffeesatz", "Trebuchet MS", Arial, sans-serif;
+  --font-days: "Days One", "Days", "Arial Black", sans-serif;
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-inter); }
   :focus-visible {
     outline: 2px solid theme("colors.brand.blue");
     outline-offset: 2px;
   }
+  ::selection { background: theme("colors.brand.blue-soft"); color: theme("colors.ink"); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
@@ -34,4 +33,5 @@
     @apply min-h-10 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-ink;
     @apply focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20;
   }
+  .section-heading { @apply mb-5 text-center font-display text-3xl font-bold text-brand-blue sm:text-4xl; }
 }

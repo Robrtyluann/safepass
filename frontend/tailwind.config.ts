@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
-// Cores do manual da marca (Código de Cores.pdf). Não usar hex solto nos componentes.
+// Cores oficiais do manual. Inter é mantida no corpo; Days One e Yanone Kaffeesatz
+// são carregadas do Google Fonts como aproximação digital das famílias listadas no material de marca.
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
@@ -20,7 +21,8 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        display: ["var(--font-yanone)", "system-ui", "sans-serif"],
+        brand: ["var(--font-days)", "system-ui", "sans-serif"],
       },
     },
   },

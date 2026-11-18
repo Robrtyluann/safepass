@@ -11,13 +11,11 @@ interface TypeCard {
   description: string;
   cta: string;
   icon: LucideIcon;
-  /** Classes completas (o Tailwind só gera classes escritas por extenso). */
   hover: string;
   iconIdle: string;
-  cta_color: string;
+  ctaColor: string;
 }
 
-// Pares cor/fundo do manual da marca: azul, verde e amarelo.
 const CARDS: TypeCard[] = [
   {
     accountType: "user",
@@ -28,29 +26,29 @@ const CARDS: TypeCard[] = [
     icon: Heart,
     hover: "hover:border-brand-blue hover:bg-brand-blue",
     iconIdle: "bg-brand-blue-soft text-brand-blue",
-    cta_color: "text-brand-blue",
+    ctaColor: "text-brand-blue",
   },
   {
     accountType: "provider",
     title: "Sou Prestador",
     description:
-      "Aumente sua visibilidade, gerencie seu corpo clínico e ofereça cupons exclusivos sem burocracia de convênios.",
+      "Aumente sua visibilidade, apresente seus serviços e conecte-se a pessoas que buscam cuidado e confiança.",
     cta: "Seja um parceiro",
     icon: UserPlus,
     hover: "hover:border-brand-green hover:bg-brand-green",
     iconIdle: "bg-brand-green-soft text-brand-green",
-    cta_color: "text-brand-green",
+    ctaColor: "text-brand-green",
   },
   {
     accountType: "company",
     title: "Sou Empresa",
     description:
-      "Ofereça o SAFEpass como benefício para seus colaboradores e gerencie atestados com total controle digital.",
+      "Ofereça o SAFEpass como benefício para seus colaboradores e fortaleça o cuidado com sua equipe.",
     cta: "Solicitar proposta",
     icon: Briefcase,
     hover: "hover:border-brand-amber hover:bg-brand-amber",
     iconIdle: "bg-brand-amber-soft text-brand-amber",
-    cta_color: "text-brand-amber",
+    ctaColor: "text-brand-amber",
   },
 ];
 
@@ -58,44 +56,43 @@ export function UserTypesSection() {
   const { openDialog } = useDialogs();
 
   return (
-    <section className="bg-brand-blue-soft/30 px-6 py-20">
+    <section className="bg-brand-blue-soft/30 px-6 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-3 text-center font-display text-3xl font-bold text-brand-blue">
+        <h2 className="mb-4 text-center font-display text-3xl font-bold text-brand-blue sm:text-4xl">
           Sua jornada de proteção começa aqui
         </h2>
-        <p className="mx-auto mb-14 max-w-2xl text-center leading-relaxed text-slate-500">
-          Desbloqueie todo o potencial do SAFEpass: gerencie a saúde da sua família, acumule benefícios e
-          acesse cupons exclusivos com o plano ideal para você.
+        <p className="mx-auto mb-14 max-w-2xl text-center leading-relaxed text-slate-600">
+          Desbloqueie todo o potencial do SAFEpass: encontre cuidado para você e sua família, conheça os benefícios e escolha o perfil ideal para começar.
         </p>
-        <div className="grid gap-6 md:grid-cols-3">
-          {CARDS.map(({ accountType, title, description, cta, icon: Icon, hover, iconIdle, cta_color }) => (
+        <div className="grid items-stretch gap-6 md:grid-cols-3">
+          {CARDS.map(({ accountType, title, description, cta, icon: Icon, hover, iconIdle, ctaColor }) => (
             <article
               key={accountType}
               className={cn(
-                "group rounded-2xl border-2 border-brand-blue-soft bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl",
+                "group flex min-h-[20rem] flex-col rounded-2xl border-2 border-brand-blue-soft bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-within:ring-2 focus-within:ring-brand-blue/30",
                 hover,
               )}
             >
               <span
                 className={cn(
-                  "mb-4 flex h-12 w-12 items-center justify-center rounded-xl transition group-hover:bg-white/25 group-hover:text-white",
+                  "mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition group-hover:bg-white/20 group-hover:text-white",
                   iconIdle,
                 )}
               >
                 <Icon className="h-7 w-7" aria-hidden />
               </span>
-              <h3 className="mb-2 font-display text-lg font-bold text-brand-blue transition group-hover:text-white">
+              <h3 className="mb-2 font-display text-xl font-bold text-brand-blue transition group-hover:text-white">
                 {title}
               </h3>
-              <p className="mb-5 text-sm leading-relaxed text-slate-500 transition group-hover:text-white/85">
+              <p className="flex-1 text-sm leading-relaxed text-slate-600 transition group-hover:text-white/90">
                 {description}
               </p>
               <button
                 type="button"
                 onClick={() => openDialog("register", { accountType })}
                 className={cn(
-                  "inline-flex items-center gap-2 text-sm font-semibold transition group-hover:text-white focus-visible:ring-2 focus-visible:ring-brand-blue",
-                  cta_color,
+                  "mt-7 inline-flex min-h-11 w-fit items-center gap-2 border-b-2 border-current pb-1 text-sm font-bold transition group-hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-blue",
+                  ctaColor,
                 )}
               >
                 {cta} <Sun className="h-4 w-4" aria-hidden />

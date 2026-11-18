@@ -1,3 +1,5 @@
+from logging.config import fileConfig
+
 from sqlalchemy import create_engine, pool
 
 from alembic import context
@@ -8,6 +10,9 @@ from app.core.database import Base
 # Imports register every module before autogeneration; no create_all at startup.
 assert models_registry.__all__
 config = context.config
+if config.config_file_name is not None:
+    # Mostra o progresso das migrations; não desliga loggers já configurados (testes, app).
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 target_metadata = Base.metadata
 
 
